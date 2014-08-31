@@ -23,6 +23,12 @@
     },
     "windows": {
       "locked_version": "1.34.2"
+    },
+    "yum-mysql-community": {
+      "locked_version": "0.1.10"
+    },
+    "yum": {
+      "locked_version": "3.2.2"
     }
   }
 }
