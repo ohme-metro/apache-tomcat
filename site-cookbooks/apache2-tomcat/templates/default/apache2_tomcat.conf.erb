@@ -1,0 +1,45 @@
+<VirtualHost *:80>
+  ServerAdmin ops@example.com
+
+  DocumentRoot /var/www/html/
+  <Directory />
+    Options FollowSymLinks
+    AllowOverride None
+  </Directory>
+
+  <Directory /var/www/html/>
+    Options Indexes FollowSymLinks MultiViews
+    AllowOverride None
+    Order allow,deny
+    Allow from all
+  </Directory>
+
+  ScriptAlias /cgi-bin/ /var/www/cgi-bin/
+  <Directory "/var/www/cgi-bin">
+    AllowOverride None
+    Options +ExecCGI -MultiViews +SymLinksIfOwnerMatch
+    Order allow,deny
+    Allow from all
+  </Directory>
+
+  #
+  # This configuration file enables the default "Welcome"
+  # page if there is no default index page present for
+  # the root URL.  To disable the Welcome page, comment
+  # out all the lines below.
+  #
+  <LocationMatch "^/+$">
+    Options -Indexes
+    ErrorDocument 403 /error/noindex.html
+  </LocationMatch>
+ErrorLog /var/log/httpd/error_test.log
+CustomLog /var/log/httpd/access_mbaas.log combine
+</VirtualHost>
+
+
+<Location />
+  Order allow,deny
+  Allow from all
+  ProxyPass ajp://localhost:8009/
+</Location>
+
