@@ -45,11 +45,6 @@ service 'apache2' do
   only_if "#{node['apache']['binary']} -t", :environment => { 'APACHE_LOG_DIR' => node['apache']['log_dir'] }
 end
 
-execute "apache-restart" do
- command <<-EOH
-    service httpd restart
- EOH
-end\
 
 %w(sites-available sites-enabled mods-available mods-enabled conf-available conf-enabled).each do |dir|
   directory "#{node['apache']['dir']}/#{dir}" do
@@ -217,10 +212,19 @@ apache_site '000-default' do
   enable node['apache']['default_site_enabled']
 end
 
-execute "httpd_conf" do
-  command <<-EOH
-    if `ps -ef | grep /usr/sbin/httpd | grep apache` ; then
-        service httpd stop
-    fi
-  EOH
+
+service 'apache2' do
+  service_name node['apache']['package']
+  case node['platform_family']
+  when 'rhel'
+   reload_command '/sbin/service httpd graceful'
+  when 'debian'
+    provider Chef::Provider::Service::Debian
+  when 'arch'
+    service_name 'httpd'
+  end
+ supports [:start, :restart, :reload, :status]
+  action [:enable, :stop]
+  only_if "#{node['apache']['binary']} -t", :environment => { 'APACHE_LOG_DIR' => node['apache']['log_dir'] }
 end
+

@@ -13,6 +13,7 @@ socket                         = <%= @socket_file %>
 <% if @nice %>
 nice                           = 0
 <% end %>
+log-error=/var/log/mysqld.log
 
 [mysqld]
 user                           = mysql
@@ -35,7 +36,7 @@ lc-messages-dir                = <%= @lc_messages_dir %>
 <% end %>
 sql_mode=NO_ENGINE_SUBSTITUTION,STRICT_TRANS_TABLES
 
-default-character-set = utf8
+character-set-server = utf8
 
 [mysql]
 <% if @include_dir %>

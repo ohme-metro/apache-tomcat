@@ -29,14 +29,11 @@ template "/etc/postfix/main.cf" do
   mode 0755
 end
 
-execute "ipv6-kill" do
- command <<-EOH
-    /etc/init.d/ip6tables restart
-    /etc/init.d/ip6tables stop
-    chkconfig ip6tables off
-    /etc/init.d/postfix restart
- EOH
+service "ip6tables" do
+	supports [:start, :restart, :reload, :status, :disable]
+  action [:disable, :stop]
 end
+
 
 execute "rebuild-iptables" do
   command "/usr/sbin/rebuild-iptables"

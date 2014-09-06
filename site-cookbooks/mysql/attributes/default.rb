@@ -2,9 +2,9 @@
 default['mysql']['service_name'] = 'default'
 
 # passwords
-default['mysql']['server_root_password'] = 'ilikerandompasswords'
-default['mysql']['server_debian_password'] = nil
-default['mysql']['server_repl_password'] = nil
+default['mysql']['server_root_password'] = 'metrometro'
+default['mysql']['server_debian_password'] = 'metrometro'
+default['mysql']['server_repl_password'] = 'metrometro'
 
 # used in grants.sql
 default['mysql']['allow_remote_root'] = false
@@ -20,3 +20,7 @@ end
 
 # port
 default['mysql']['port'] = '3306'
+
+
+#version
+default['mysql']['version'] = '5.6'

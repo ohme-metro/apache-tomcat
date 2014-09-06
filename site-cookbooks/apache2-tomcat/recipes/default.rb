@@ -32,3 +32,13 @@ execute "set-tomcat" do
   fi
   EOH
 end
+
+service 'apache2' do
+	supports [:start, :restart, :reload, :status]
+  action [:enable, :restart]
+end
+
+service "tomcat7" do
+  supports :restart => true, :reload => true, :status => true
+  action [:enable, :restart]
+end

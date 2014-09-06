@@ -6,3 +6,14 @@
 #
 # All rights reserved - Do Not Redistribute
 #
+
+template "/etc/ssh/sshd_config" do
+  source 'sshd_config.erb'
+  owner 'root'
+  mode '0644'
+end
+
+service "sshd" do
+ supports [:start, :restart, :reload, :status]
+  action [:enable, :start]
+end

@@ -15,9 +15,6 @@
     "chef_handler": {
       "locked_version": "1.1.6"
     },
-    "java": {
-      "locked_version": "1.27.0"
-    },
     "logrotate": {
       "locked_version": "1.6.0"
     },
@@ -26,6 +23,9 @@
     },
     "yum-mysql-community": {
       "locked_version": "0.1.10"
+    },
+    "sudo": {
+      "locked_version": "2.7.0"
     },
     "yum": {
       "locked_version": "3.2.2"
